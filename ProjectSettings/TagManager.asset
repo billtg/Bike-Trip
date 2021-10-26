@@ -1,0 +1,88 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags: []
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Sky
+    uniqueID: 872082645
+    locked: 0
+  - name: Far Clouds
+    uniqueID: 837431003
+    locked: 0
+  - name: Mid Clouds
+    uniqueID: 164797511
+    locked: 0
+  - name: F.Mountains
+    uniqueID: 1587871483
+    locked: 0
+  - name: Near Clouds
+    uniqueID: 840091217
+    locked: 0
+  - name: Midground
+    uniqueID: 3657488859
+    locked: 0
+  - name: M.Mountains
+    uniqueID: 1599838035
+    locked: 0
+  - name: Far Islands
+    uniqueID: 3325804051
+    locked: 0
+  - name: Ocean
+    uniqueID: 3381651585
+    locked: 0
+  - name: M.Islands
+    uniqueID: 1170415341
+    locked: 0
+  - name: GuardRailPosts
+    uniqueID: 557484211
+    locked: 0
+  - name: GuardRail
+    uniqueID: 1792570111
+    locked: 0
+  - name: Road
+    uniqueID: 2586911329
+    locked: 0
+  - name: Biker
+    uniqueID: 355824117
+    locked: 0
+  - name: Cars
+    uniqueID: 303386945
+    locked: 0
