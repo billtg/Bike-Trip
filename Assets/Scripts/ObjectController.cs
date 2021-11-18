@@ -8,6 +8,7 @@ public class ObjectController : MonoBehaviour
     public static ObjectController instance;
 
     public float simSpeed;
+    public int frameRate;
     public float minParallax;
     public float maxParallax;
     //public float TOD = 12;
@@ -97,7 +98,7 @@ public class ObjectController : MonoBehaviour
     private void Awake()
     {
         instance = this;
-        //Application.targetFrameRate = 24;
+        Application.targetFrameRate = frameRate;
     }
 
     private void Start()
@@ -121,7 +122,7 @@ public class ObjectController : MonoBehaviour
 
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         SpawnGuardRailPosts();
         SpawnLines();

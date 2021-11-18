@@ -421,6 +421,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   simSpeed: 50
+  frameRate: 30
   minParallax: 0.001
   maxParallax: 0.004
   lineSpawn: -6
@@ -436,13 +437,13 @@ MonoBehaviour:
   islandSpawnHeightFar: -1.45
   lineSpawnTime: 1
   postSpawnTime: 1.3
-  linkageSpawnTime: 1.4
+  linkageSpawnTime: 3.4
   cloudSpawnTimeNear: 8
   cloudSpawnTimeMid: 8
   cloudSpawnTimeFar: 12
   mtnSpawnTimeNear: 80
-  mtnSpawnTimeMid: 60
-  mtnSpawnTimeFar: 100
+  mtnSpawnTimeMid: 100
+  mtnSpawnTimeFar: 150
   islandSpawnTimeMid: 200
   islandSpawnTimeFar: 120
   linePrefab: {fileID: 1233681984401547683, guid: a0bd7be3f5191ec4a82feaa76ebc05f0, type: 3}

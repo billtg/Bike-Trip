@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useParallax: 0
   speed: 0.003
-  minScreen: -40
+  minScreen: -80
 --- !u!114 &6814032064326017296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,3 +114,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spriteList:
   - {fileID: 21300000, guid: beb6ece358cd9a74e83162f896654392, type: 3}
+  - {fileID: 21300000, guid: 526013ef2320c924cb67b77c94e4593c, type: 3}
+  - {fileID: 21300000, guid: 8a8d2da5b103fe64684671809eb3b8fb, type: 3}
+  - {fileID: 21300000, guid: b444d8c4705cd2941bac45bb6ca550a8, type: 3}

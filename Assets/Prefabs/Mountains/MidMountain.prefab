@@ -99,7 +99,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   useParallax: 0
   speed: 0.0015
-  minScreen: -40
+  minScreen: -80
 --- !u!114 &7822477286752408107
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -116,3 +116,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 469732f03219a3a4c8e81cf96656d661, type: 3}
   - {fileID: 21300000, guid: 680e8909074276345a44d5f0d65be22b, type: 3}
   - {fileID: 21300000, guid: bf589f7ae99d3c14f97e46ac7f925ad3, type: 3}
+  - {fileID: 21300000, guid: c83097503df69e34f8916f05c5b00bff, type: 3}
+  - {fileID: 21300000, guid: 767115ccd17a3d14489c8146060cc508, type: 3}
+  - {fileID: 21300000, guid: 0a42d87366f718744b8b78090e819ce6, type: 3}
+  - {fileID: 21300000, guid: 1c79b052f13f93f42a65942b07ad0875, type: 3}
+  - {fileID: 21300000, guid: ad94642df3abc7c4b9a25b0c40da50e6, type: 3}
+  - {fileID: 21300000, guid: c37c570d2a3aec94fa08085d811ae994, type: 3}
+  - {fileID: 21300000, guid: ac9520d1d4512674d8bb1b9e4f40faa9, type: 3}
