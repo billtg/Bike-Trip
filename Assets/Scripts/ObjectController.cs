@@ -191,12 +191,14 @@ public class ObjectController : MonoBehaviour
 
             //Adjust speed and y scale for height
             MovingObject cloudMO = newCloud.GetComponent<MovingObject>();
-            //cloudMO.speed *= 1f + height / 5;
             SetParallaxSpeed(cloudMO, true);
-            cloudMO.gameObject.transform.localScale = new Vector3(1f + height / 2, 1f + height / 2, 1);
+            cloudMO.gameObject.transform.localScale = new Vector3(1f + height / 4f, 1f + height / 4f, 1);
 
             //Adjust Sorting layer order
             newCloud.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(Mathf.Lerp(0, 100, (height / 2*range) + .5f));
+
+            //Apply Atmospheric perspective
+            newCloud.GetComponent<SpriteRenderer>().material.SetFloat("_PerspectiveAmount", Mathf.Lerp(.5f, 0, ((cloudMO.transform.position.y + 1.5f) / 5.5f)));
 
             //Assign to Cloud container
             newCloud.transform.parent = cloudParent.transform;
@@ -226,6 +228,9 @@ public class ObjectController : MonoBehaviour
 
             //Adjust Sorting layer order
             newItem.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(Mathf.Lerp(100, 0, (height / 2 * range) + .5f));
+
+            //Apply Atmospheric perspective
+            newItem.GetComponent<SpriteRenderer>().material.SetFloat("_PerspectiveAmount", Mathf.Lerp(.5f, 0, -newItem.transform.position.y / 3f));
 
             //Assign to Container
             newItem.transform.parent = parent.transform;
@@ -271,8 +276,8 @@ public class ObjectController : MonoBehaviour
         float objectHeight = movingObject.gameObject.transform.position.y;
         //scale speed between .001 and .004
         if (objectInSky)
-            movingObject.speed = Mathf.Lerp(minParallax, maxParallax, (objectHeight / 5.5f));
+            movingObject.speed = Mathf.Lerp(minParallax, maxParallax, ((objectHeight+1.5f) / 5.5f));
         else
-            movingObject.speed = Mathf.Lerp(minParallax, maxParallax, (-objectHeight / 5.5f));
+            movingObject.speed = Mathf.Lerp(minParallax, maxParallax, (-objectHeight / 4.5f));
     }
 }

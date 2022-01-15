@@ -98,7 +98,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useParallax: 0
-  speed: 0.05
+  speed: 0.15
   minScreen: -20
 --- !u!114 &2671692191772035945
 MonoBehaviour:
