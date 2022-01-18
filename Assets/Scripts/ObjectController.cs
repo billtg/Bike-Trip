@@ -94,6 +94,20 @@ public class ObjectController : MonoBehaviour
     public GameObject ocean;
     public GameObject land;
 
+    //Spawn Indexes
+    public List<int> nearCloudIndexes = new List<int>();
+    public List<int> midCloudIndexes = new List<int>();
+    public List<int> farCloudIndexes = new List<int>();
+
+    public List<int> farIslandIndexes = new List<int>();
+    public List<int> midIslandIndexes = new List<int>();
+
+    public List<int> farMountainIndexes = new List<int>();
+    public List<int> midMountainIndexes = new List<int>();
+    public List<int> NearMountainIndexes = new List<int>();
+
+    public List<int> fakeIndexList = new List<int>();
+
 
     private void Awake()
     {
@@ -130,17 +144,15 @@ public class ObjectController : MonoBehaviour
         //spawn cars/trucks
 
         //Spawn Clouds
-        if (SpawnCloud(cloudLastSpawnNear, cloudSpawnTimeNear, cloudSpawnHeightNear, cloudPrefabNear,1f))
+        if (SpawnCloud(cloudLastSpawnNear, cloudSpawnTimeNear, cloudSpawnHeightNear, cloudPrefabNear,1f, nearCloudIndexes))
             cloudLastSpawnNear = Time.time;
-        if (SpawnCloud(cloudLastSpawnMid, cloudSpawnTimeMid, cloudSpawnHeightMid, cloudPrefabMid,1f))
+        if (SpawnCloud(cloudLastSpawnMid, cloudSpawnTimeMid, cloudSpawnHeightMid, cloudPrefabMid,1f, midCloudIndexes))
             cloudLastSpawnMid = Time.time;
-        if (SpawnCloud(cloudLastSpawnFar, cloudSpawnTimeFar, cloudSpawnHeightFar, cloudPrefabFar,.5f))
+        if (SpawnCloud(cloudLastSpawnFar, cloudSpawnTimeFar, cloudSpawnHeightFar, cloudPrefabFar,.5f, farCloudIndexes))
             cloudLastSpawnFar = Time.time;
 
         //Spawn biome items
         SpawnBiomeItems();
-        //spawn mountains
-        //Spawn water
 
         //See if it's time to change biomes. Don't know how I'm going to do this.
 
@@ -160,23 +172,27 @@ public class ObjectController : MonoBehaviour
 
     void SpawnGuardRailPosts()
     {
-        if (SpawnItem(postLastSpawn+postTimeRandomizer, postSpawnTime, postSpawnHeight, postPrefab, 0, roadParent, false))
+        if (SpawnItem(postLastSpawn+postTimeRandomizer, postSpawnTime, postSpawnHeight, postPrefab, 0, roadParent, false,fakeIndexList))
         {
             postLastSpawn = Time.time;
             postTimeRandomizer = Random.Range(0f, .5f);
+
+            ClearFakeList();
         }
     }
 
     void SpawnLinkage()
     {
-        if (SpawnItem(linkageLastSpawn + linkageTimeRandomizer, linkageSpawnTime, linkageSpawnHeight, linkagePrefab, 0, roadParent, false))
+        if (SpawnItem(linkageLastSpawn + linkageTimeRandomizer, linkageSpawnTime, linkageSpawnHeight, linkagePrefab, 0, roadParent, false, fakeIndexList))
         {
             linkageLastSpawn = Time.time;
             linkageTimeRandomizer = Random.Range(0f, .5f);
+
+            ClearFakeList();
         }
     }
 
-    bool SpawnCloud(float lastSpawn, float spawnTime, float spawnHeight, GameObject prefab, float range)
+    bool SpawnCloud(float lastSpawn, float spawnTime, float spawnHeight, GameObject prefab, float range, List<int> indexList)
     {
         if (Time.time - lastSpawn > spawnTime / simSpeed)
         {
@@ -185,8 +201,8 @@ public class ObjectController : MonoBehaviour
             GameObject newCloud = Instantiate(prefab, new Vector3(15, spawnHeight + height, 0), Quaternion.identity);
             //cloudLastSpawnNear = Time.time;
 
-            //set a random sprite
-            int i = Random.Range(0, newCloud.GetComponent<SpriteRandomizer>().spriteList.Length);
+            //set a random, nonrepeating sprite
+            int i = nonRepeatingSpriteIndex(indexList, newCloud.GetComponent<SpriteRandomizer>().spriteList.Length);
             newCloud.GetComponent<SpriteRenderer>().sprite = newCloud.GetComponent<SpriteRandomizer>().spriteList[i];
 
             //Adjust speed and y scale for height
@@ -208,7 +224,7 @@ public class ObjectController : MonoBehaviour
         return false;
     }
 
-    bool SpawnItem(float lastSpawn, float spawnTime, float spawnHeight, GameObject prefab, float range, GameObject parent, bool hasParallax)
+    bool SpawnItem(float lastSpawn, float spawnTime, float spawnHeight, GameObject prefab, float range, GameObject parent, bool hasParallax, List<int> indexList)
     {
         if (Time.time - lastSpawn > spawnTime / simSpeed)
         {
@@ -217,7 +233,8 @@ public class ObjectController : MonoBehaviour
             GameObject newItem = Instantiate(prefab, new Vector3(40, spawnHeight + height, 0), Quaternion.identity);
 
             //set a random sprite
-            int i = Random.Range(0, newItem.GetComponent<SpriteRandomizer>().spriteList.Length);
+            int i = nonRepeatingSpriteIndex(indexList, newItem.GetComponent<SpriteRandomizer>().spriteList.Length);
+            //int i = Random.Range(0, newItem.GetComponent<SpriteRandomizer>().spriteList.Length);
             newItem.GetComponent<SpriteRenderer>().sprite = newItem.GetComponent<SpriteRandomizer>().spriteList[i];
 
             //Adjust speed and y scale for height
@@ -248,20 +265,20 @@ public class ObjectController : MonoBehaviour
         {
             case biome.ocean:
                 //Debug.Log("Spawning Ocean");
-                if (SpawnItem(islandLastSpawnFar, islandSpawnTimeFar, islandSpawnHeightFar, islandPrefabFar, 0f, islandParent, true))
+                if (SpawnItem(islandLastSpawnFar, islandSpawnTimeFar, islandSpawnHeightFar, islandPrefabFar, 0f, islandParent, true, farIslandIndexes))
                     islandLastSpawnFar = Time.time;
-                if (SpawnItem(islandLastSpawnMid, islandSpawnTimeMid, islandSpawnHeightMid, islandPrefabMid, 0.5f, islandParent, true))
+                if (SpawnItem(islandLastSpawnMid, islandSpawnTimeMid, islandSpawnHeightMid, islandPrefabMid, 0.5f, islandParent, true, midIslandIndexes))
                     islandLastSpawnMid = Time.time;
                 break;
 
             case biome.mountain:
                 //Debug.Log("Spawning Mountain");
                 //Spawn close, mid, and far mountains
-                if (SpawnItem(mtnLastSpawnNear, mtnSpawnTimeNear, mtnSpawnHeightNear, mtnPrefabNear, .25f, mtnParent, true))
+                if (SpawnItem(mtnLastSpawnNear, mtnSpawnTimeNear, mtnSpawnHeightNear, mtnPrefabNear, .25f, mtnParent, true, NearMountainIndexes))
                     mtnLastSpawnNear = Time.time;
-                if (SpawnItem(mtnLastSpawnMid, mtnSpawnTimeMid, mtnSpawnHeightMid, mtnPrefabMid, .25f, mtnParent, true))
+                if (SpawnItem(mtnLastSpawnMid, mtnSpawnTimeMid, mtnSpawnHeightMid, mtnPrefabMid, .25f, mtnParent, true, midMountainIndexes))
                     mtnLastSpawnMid = Time.time;
-                if (SpawnItem(mtnLastSpawnFar, mtnSpawnTimeFar, mtnSpawnHeightFar, mtnPrefabFar, 0f, mtnParent, true))
+                if (SpawnItem(mtnLastSpawnFar, mtnSpawnTimeFar, mtnSpawnHeightFar, mtnPrefabFar, 0f, mtnParent, true, farMountainIndexes))
                     mtnLastSpawnFar = Time.time;
                 break;
 
@@ -279,5 +296,31 @@ public class ObjectController : MonoBehaviour
             movingObject.speed = Mathf.Lerp(minParallax, maxParallax, ((objectHeight+1.5f) / 5.5f));
         else
             movingObject.speed = Mathf.Lerp(minParallax, maxParallax, (-objectHeight / 4.5f));
+    }
+
+    int nonRepeatingSpriteIndex(List<int> checkList, int spriteListLength)
+    {
+        int i = Random.Range(0, spriteListLength);
+        while (checkList.Contains(i))
+        {
+            Debug.Log("found in index list: " + i.ToString() + ". Trying again");
+            i = Random.Range(0, spriteListLength);
+        }
+        checkList.Add(i);
+        if (checkList.Count > 5)
+        {
+            //Debug.Log("more than 5");
+            checkList.RemoveAt(0);
+        }
+        return i;
+    }
+
+    void ClearFakeList()
+    {
+        for (int i = 0; i<5; i++)
+        {
+            fakeIndexList.Add(100);
+            fakeIndexList.RemoveAt(0);
+        }
     }
 }

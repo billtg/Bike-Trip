@@ -524,7 +524,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d27a42481eed164459e420db92e904a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  simSpeed: 50
+  simSpeed: 5
   frameRate: 30
   minParallax: 0.001
   maxParallax: 0.01
@@ -538,18 +538,18 @@ MonoBehaviour:
   mtnSpawnHeightMid: -3
   mtnSpawnHeightFar: -1.5
   islandSpawnHeightMid: -2.5
-  islandSpawnHeightFar: -1.45
+  islandSpawnHeightFar: -1.25
   lineSpawnTime: 1
   postSpawnTime: 1.3
   linkageSpawnTime: 3.4
-  cloudSpawnTimeNear: 30
-  cloudSpawnTimeMid: 20
-  cloudSpawnTimeFar: 20
+  cloudSpawnTimeNear: 20
+  cloudSpawnTimeMid: 15
+  cloudSpawnTimeFar: 15
   mtnSpawnTimeNear: 80
   mtnSpawnTimeMid: 100
   mtnSpawnTimeFar: 150
-  islandSpawnTimeMid: 75
-  islandSpawnTimeFar: 120
+  islandSpawnTimeMid: 25
+  islandSpawnTimeFar: 70
   linePrefab: {fileID: 1233681984401547683, guid: a0bd7be3f5191ec4a82feaa76ebc05f0, type: 3}
   postPrefab: {fileID: 1996677671200569007, guid: 91fc037d37225704fa5164a20ec570e0, type: 3}
   linkagePrefab: {fileID: 2806809945822448142, guid: 13c006926bf351440855c8c58f1434a9, type: 3}
@@ -569,6 +569,9 @@ MonoBehaviour:
   nextBiome: 0
   ocean: {fileID: 1482033996}
   land: {fileID: 1863381887}
+  nearCloudIndexes: 
+  midCloudIndexes: 
+  farCloudIndexes: 
 --- !u!1 &352312269
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,14 +24,7 @@ public class MovingObject : MonoBehaviour
 
     private void Move()
     {
-        if (useParallax)
-        {
-            //Debug.Log("Use Parallax");
-            transform.position = new Vector3(this.transform.position.x - speed*ObjectController.instance.simSpeed, this.transform.position.y, this.transform.position.z);
-        } else
-        {
-            transform.position = new Vector3(this.transform.position.x - speed * ObjectController.instance.simSpeed, this.transform.position.y, this.transform.position.z);
-        }
+        transform.position = new Vector3(this.transform.position.x - speed*ObjectController.instance.simSpeed, this.transform.position.y, this.transform.position.z);
     }
 
     private void CheckForOffScreen()
