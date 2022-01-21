@@ -98,8 +98,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useParallax: 0
-  speed: 0.15
+  speed: 0.4
   minScreen: -20
+  material: {fileID: 0}
 --- !u!114 &2671692191772035945
 MonoBehaviour:
   m_ObjectHideFlags: 0

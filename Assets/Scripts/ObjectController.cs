@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum biome { mountain, ocean, forest}
+public enum biome { mountain, ocean, menu}
 public class ObjectController : MonoBehaviour
 {
     public static ObjectController instance;
@@ -11,6 +11,7 @@ public class ObjectController : MonoBehaviour
     public int frameRate;
     public float minParallax;
     public float maxParallax;
+    public float atmosAmount;
     //public float TOD = 12;
 
     //Spawn Locations
@@ -95,16 +96,16 @@ public class ObjectController : MonoBehaviour
     public GameObject land;
 
     //Spawn Indexes
-    public List<int> nearCloudIndexes = new List<int>();
-    public List<int> midCloudIndexes = new List<int>();
-    public List<int> farCloudIndexes = new List<int>();
+    private List<int> nearCloudIndexes = new List<int>();
+    private List<int> midCloudIndexes = new List<int>();
+    private List<int> farCloudIndexes = new List<int>();
 
-    public List<int> farIslandIndexes = new List<int>();
-    public List<int> midIslandIndexes = new List<int>();
+    private List<int> farIslandIndexes = new List<int>();
+    private List<int> midIslandIndexes = new List<int>();
 
-    public List<int> farMountainIndexes = new List<int>();
-    public List<int> midMountainIndexes = new List<int>();
-    public List<int> NearMountainIndexes = new List<int>();
+    private List<int> farMountainIndexes = new List<int>();
+    private List<int> midMountainIndexes = new List<int>();
+    private List<int> nearMountainIndexes = new List<int>();
 
     public List<int> fakeIndexList = new List<int>();
 
@@ -117,9 +118,10 @@ public class ObjectController : MonoBehaviour
 
     private void Start()
     {
+        currentBiome = BiomeHolder.biomeHolder.currentBiome;
         switch(currentBiome)
         {
-            case biome.forest:
+            case biome.menu:
                 land.SetActive(true);
                 ocean.SetActive(false);
                 break;
@@ -164,7 +166,7 @@ public class ObjectController : MonoBehaviour
     {
         if (Time.time - lineLastSpawn > lineSpawnTime/simSpeed)
         {
-            GameObject newLine = Instantiate(linePrefab, new Vector3(20, lineSpawn, 0), Quaternion.identity);
+            GameObject newLine = Instantiate(linePrefab, new Vector3(10f, lineSpawn, 0), Quaternion.identity);
             lineLastSpawn = Time.time;
             newLine.transform.parent = roadParent.transform;
         }        
@@ -198,7 +200,7 @@ public class ObjectController : MonoBehaviour
         {
             //Instantiate the cloud with a randomness in height
             float height = Random.Range(-range, range);
-            GameObject newCloud = Instantiate(prefab, new Vector3(15, spawnHeight + height, 0), Quaternion.identity);
+            GameObject newCloud = Instantiate(prefab, new Vector3(10f, spawnHeight + height, 0), Quaternion.identity);
             //cloudLastSpawnNear = Time.time;
 
             //set a random, nonrepeating sprite
@@ -214,7 +216,7 @@ public class ObjectController : MonoBehaviour
             newCloud.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(Mathf.Lerp(0, 100, (height / 2*range) + .5f));
 
             //Apply Atmospheric perspective
-            newCloud.GetComponent<SpriteRenderer>().material.SetFloat("_PerspectiveAmount", Mathf.Lerp(.5f, 0, ((cloudMO.transform.position.y + 1.5f) / 5.5f)));
+            newCloud.GetComponent<SpriteRenderer>().material.SetFloat("_PerspectiveAmount", Mathf.Lerp(atmosAmount, 0, ((cloudMO.transform.position.y + 1.5f) / 5.5f)));
 
             //Assign to Cloud container
             newCloud.transform.parent = cloudParent.transform;
@@ -230,7 +232,7 @@ public class ObjectController : MonoBehaviour
         {
             //Instantiate the item with a randomness in height
             float height = Random.Range(-range, range);
-            GameObject newItem = Instantiate(prefab, new Vector3(40, spawnHeight + height, 0), Quaternion.identity);
+            GameObject newItem = Instantiate(prefab, new Vector3(10f, spawnHeight + height, 0), Quaternion.identity);
 
             //set a random sprite
             int i = nonRepeatingSpriteIndex(indexList, newItem.GetComponent<SpriteRandomizer>().spriteList.Length);
@@ -247,7 +249,7 @@ public class ObjectController : MonoBehaviour
             newItem.GetComponent<SpriteRenderer>().sortingOrder = Mathf.RoundToInt(Mathf.Lerp(100, 0, (height / 2 * range) + .5f));
 
             //Apply Atmospheric perspective
-            newItem.GetComponent<SpriteRenderer>().material.SetFloat("_PerspectiveAmount", Mathf.Lerp(.5f, 0, -newItem.transform.position.y / 3f));
+            newItem.GetComponent<SpriteRenderer>().material.SetFloat("_PerspectiveAmount", Mathf.Lerp(atmosAmount, 0, (-newItem.transform.position.y-.5f) / 4.5f));
 
             //Assign to Container
             newItem.transform.parent = parent.transform;
@@ -274,7 +276,7 @@ public class ObjectController : MonoBehaviour
             case biome.mountain:
                 //Debug.Log("Spawning Mountain");
                 //Spawn close, mid, and far mountains
-                if (SpawnItem(mtnLastSpawnNear, mtnSpawnTimeNear, mtnSpawnHeightNear, mtnPrefabNear, .25f, mtnParent, true, NearMountainIndexes))
+                if (SpawnItem(mtnLastSpawnNear, mtnSpawnTimeNear, mtnSpawnHeightNear, mtnPrefabNear, .25f, mtnParent, true, nearMountainIndexes))
                     mtnLastSpawnNear = Time.time;
                 if (SpawnItem(mtnLastSpawnMid, mtnSpawnTimeMid, mtnSpawnHeightMid, mtnPrefabMid, .25f, mtnParent, true, midMountainIndexes))
                     mtnLastSpawnMid = Time.time;
@@ -282,7 +284,7 @@ public class ObjectController : MonoBehaviour
                     mtnLastSpawnFar = Time.time;
                 break;
 
-            case biome.forest:
+            case biome.menu:
                 //Debug.Log("Spawning Forest");
                 break;
         }
@@ -303,13 +305,13 @@ public class ObjectController : MonoBehaviour
         int i = Random.Range(0, spriteListLength);
         while (checkList.Contains(i))
         {
-            Debug.Log("found in index list: " + i.ToString() + ". Trying again");
+            //Debug.Log("found in index list: " + i.ToString() + ". Trying again");
             i = Random.Range(0, spriteListLength);
         }
         checkList.Add(i);
-        if (checkList.Count > 5)
+        if (checkList.Count > 3)
         {
-            //Debug.Log("more than 5");
+            //Debug.Log("more than 3");
             checkList.RemoveAt(0);
         }
         return i;

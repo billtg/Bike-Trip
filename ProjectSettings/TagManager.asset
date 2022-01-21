@@ -47,11 +47,11 @@ TagManager:
   - name: Far Clouds
     uniqueID: 837431003
     locked: 0
-  - name: Mid Clouds
-    uniqueID: 164797511
-    locked: 0
   - name: F.Mountains
     uniqueID: 1587871483
+    locked: 0
+  - name: Mid Clouds
+    uniqueID: 164797511
     locked: 0
   - name: Near Clouds
     uniqueID: 840091217
@@ -83,6 +83,6 @@ TagManager:
   - name: Biker
     uniqueID: 355824117
     locked: 0
-  - name: Cars
+  - name: UI
     uniqueID: 303386945
     locked: 0
