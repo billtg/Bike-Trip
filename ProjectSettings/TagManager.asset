@@ -53,14 +53,14 @@ TagManager:
   - name: Mid Clouds
     uniqueID: 164797511
     locked: 0
-  - name: Near Clouds
-    uniqueID: 840091217
-    locked: 0
   - name: Midground
     uniqueID: 3657488859
     locked: 0
   - name: M.Mountains
     uniqueID: 1599838035
+    locked: 0
+  - name: Near Clouds
+    uniqueID: 840091217
     locked: 0
   - name: Far Islands
     uniqueID: 3325804051

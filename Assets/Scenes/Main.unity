@@ -454,7 +454,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 1599838035
-  m_SortingLayer: 7
+  m_SortingLayer: 6
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 31744c86ee7f84d41a754384b2d9c0bb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -549,7 +549,7 @@ MonoBehaviour:
   mtnSpawnTimeNear: 40
   mtnSpawnTimeMid: 60
   mtnSpawnTimeFar: 100
-  islandSpawnTimeMid: 25
+  islandSpawnTimeMid: 35
   islandSpawnTimeFar: 60
   linePrefab: {fileID: 1233681984401547683, guid: a0bd7be3f5191ec4a82feaa76ebc05f0, type: 3}
   postPrefab: {fileID: 1996677671200569007, guid: 91fc037d37225704fa5164a20ec570e0, type: 3}
@@ -1062,7 +1062,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 840091217
-  m_SortingLayer: 5
+  m_SortingLayer: 7
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: ee73cc78f8142a441b3cb728bec57a0c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -1607,7 +1607,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -637478437
-  m_SortingLayer: 6
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: d770f0fefb5cc884b9ad7d98de0529ec, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
